@@ -1,6 +1,7 @@
 <?php
 /**
  * PHP port of CSSJanus.
+ * https://github.com/cssjanus/php-cssjanus
  *
  * Copyright 2008 Google Inc.
  * Copyright 2010 Roan Kattouw
