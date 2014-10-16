@@ -34,6 +34,7 @@ Use a ```/* @noflip */``` comment to protect a rule from being changed.
 }
 ```
 
-## Issue tracker
+## Main repository
 
-Feature requests and bugs should usually be filed upstream at [CSSJanus](https://github.com/cssjanus/cssjanus).
+The main repository is the JavaScript version, [node-cssjanus](https://github.com/cssjanus/node-cssjanus).  Pull requests, feature requests, and bugs should be submitted there when they relate
+to the actual CSS transformation or test cases of it.  Implemented changes will then be ported here.
