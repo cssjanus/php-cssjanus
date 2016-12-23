@@ -124,8 +124,9 @@ class CSSJanus {
 			. '(?:(?:(?:\s*\/\s*)' . $patterns['possibly_negative_quantity'] . ')(?:\s+' . $patterns['possibly_negative_quantity'] . ')?(?:\s+' . $patterns['possibly_negative_quantity'] . ')?(?:\s+' . $patterns['possibly_negative_quantity'] . ')?)?' . $patterns['suffix']
 			. '/i';
 		$patterns['box_shadow'] = "/(box-shadow\s*:\s*(?:inset\s*)?){$patterns['possibly_negative_quantity']}/i";
-		$patterns['text_shadow1'] = "/(text-shadow\s*:\s*){$patterns['color']}(\s*){$patterns['possibly_negative_quantity']}/i";
-		$patterns['text_shadow2'] = "/(text-shadow\s*:\s*){$patterns['possibly_negative_quantity']}/i";
+		$patterns['text_shadow1'] = "/(text-shadow\s*:\s*){$patterns['possibly_negative_quantity']}(\s*){$patterns['color']}/i";
+		$patterns['text_shadow2'] = "/(text-shadow\s*:\s*){$patterns['color']}(\s*){$patterns['possibly_negative_quantity']}/i";
+		$patterns['text_shadow3'] = "/(text-shadow\s*:\s*){$patterns['possibly_negative_quantity']}/i";
 		$patterns['bg_horizontal_percentage'] = "/(background(?:-position)?\s*:\s*(?:[^:;}\s]+\s+)*?)({$patterns['quantity']})/i";
 		$patterns['bg_horizontal_percentage_x'] = "/(background-position-x\s*:\s*)(-?{$patterns['num']}%)/i";
 		// @codingStandardsIgnoreEnd
@@ -372,6 +373,10 @@ class CSSJanus {
 		}, $css);
 
 		$css = preg_replace_callback(self::$patterns['text_shadow2'], function ($matches) use ($flipSign) {
+			return $matches[1] . $matches[2] . $matches[3] . $flipSign($matches[4]);
+		}, $css);
+
+		$css = preg_replace_callback(self::$patterns['text_shadow3'], function ($matches) use ($flipSign) {
 			return $matches[1] . $flipSign($matches[2]);
 		}, $css);
 
