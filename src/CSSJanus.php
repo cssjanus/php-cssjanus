@@ -421,9 +421,9 @@ class CSSJanus {
 			$idx = strpos($value, '.');
 			if ($idx !== false) {
 				$len = strlen($value) - $idx - 2;
-				$value = number_format(100 - $value, $len) . '%';
+				$value = number_format(100 - (float)$value, $len) . '%';
 			} else {
-				$value = (100 - $value) . '%';
+				$value = (100 - (float)$value) . '%';
 			}
 		}
 		return $matches[1] . $value;
