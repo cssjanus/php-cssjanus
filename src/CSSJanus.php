@@ -99,10 +99,12 @@ class CSSJanus {
 		$patterns['quantity'] = "{$patterns['num']}(?:\s*{$patterns['unit']}|{$patterns['ident']})?";
 		$patterns['possibly_negative_quantity'] = "((?:-?{$patterns['quantity']})|(?:inherit|auto))";
 		$patterns['color'] = "(#?{$patterns['nmchar']}+|(?:rgba?|hsla?)\([ \d.,%-]+\))";
-		$patterns['url_chars'] = "(?:{$patterns['url_special_chars']}|{$patterns['nonAscii']}|{$patterns['escape']})*";
-		$patterns['lookahead_not_open_brace'] = "(?!({$patterns['nmchar']}|\\r?\\n|\s|#|\:|\.|\,|\+|>|\(|\)|\[|\]|=|\*=|~=|\^=|'[^']*'])*?{)";
-		$patterns['lookahead_not_closing_paren'] = "(?!{$patterns['url_chars']}?{$patterns['valid_after_uri_chars']}\))";
-		$patterns['lookahead_for_closing_paren'] = "(?={$patterns['url_chars']}?{$patterns['valid_after_uri_chars']}\))";
+		// Use "*+" instead of "*?" to avoid reaching the backtracking limit.
+		// <https://github.com/cssjanus/php-cssjanus/issues/14>, <https://phabricator.wikimedia.org/T215746#4944830>.
+		$patterns['url_chars'] = "(?:{$patterns['url_special_chars']}|{$patterns['nonAscii']}|{$patterns['escape']})*+";
+		$patterns['lookahead_not_open_brace'] = "(?!({$patterns['nmchar']}|\\r?\\n|\s|#|\:|\.|\,|\+|>|\(|\)|\[|\]|=|\*=|~=|\^=|'[^']*'])*+{)";
+		$patterns['lookahead_not_closing_paren'] = "(?!{$patterns['url_chars']}{$patterns['valid_after_uri_chars']}\))";
+		$patterns['lookahead_for_closing_paren'] = "(?={$patterns['url_chars']}{$patterns['valid_after_uri_chars']}\))";
 		$patterns['noflip_single'] = "/({$patterns['noflip_annotation']}{$patterns['lookahead_not_open_brace']}[^;}]+;?)/i";
 		$patterns['noflip_class'] = "/({$patterns['noflip_annotation']}{$patterns['chars_within_selector']}})/i";
 		$patterns['direction_ltr'] = "/({$patterns['direction']})ltr/i";
