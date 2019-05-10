@@ -75,4 +75,15 @@ class CSSJanusTest extends PHPUnit_Framework_TestCase {
 		}
 		return json_decode($json, /* $assoc = */ true);
 	}
+
+	public function testPrestaShopTransform() {
+		$css = file_get_contents('https://raw.githubusercontent.com/PrestaShop/PrestaShop/452ca0ff1d314b7c2e3f3824fb0a32cfea8a7d8b/admin-dev/themes/new-theme/public/theme.css');
+		if ($css === false) {
+			throw new Exception('Failed to fetch data');
+		}
+		$this->assertNotEquals(
+			'',
+			CSSJanus::transform($css)
+		);
+	}
 }
