@@ -129,8 +129,8 @@ class CSSJanus {
 		$patterns['text_shadow3'] = "/(text-shadow\s*:\s*){$patterns['possibly_negative_quantity']}/i";
 		$patterns['bg_horizontal_percentage'] = "/(background(?:-position)?\s*:\s*(?:[^:;}\s]+\s+)*?)({$patterns['quantity']})/i";
 		$patterns['bg_horizontal_percentage_x'] = "/(background-position-x\s*:\s*)(-?{$patterns['num']}%)/i";
-		$patterns['translate_x'] = "/(transform\s*:[^;]*)(translateX\s*\(\s*){$patterns['possibly_negative_quantity']}(\s*\))/i";
-		$patterns['translate'] = "/(transform\s*:[^;]*)(translate\s*\(\s*){$patterns['possibly_negative_quantity']}((?:\s*,\s*{$patterns['possibly_negative_quantity']}){0,2}\s*\))/i";
+		$patterns['translate_x'] = "/(transform\s*:[^;}]*)(translateX\s*\(\s*){$patterns['possibly_negative_quantity']}(\s*\))/i";
+		$patterns['translate'] = "/(transform\s*:[^;}]*)(translate\s*\(\s*){$patterns['possibly_negative_quantity']}((?:\s*,\s*{$patterns['possibly_negative_quantity']}){0,2}\s*\))/i";
 		// @codingStandardsIgnoreEnd
 	}
 
