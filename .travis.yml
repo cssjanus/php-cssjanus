@@ -7,13 +7,9 @@ php:
   - "7.1"
   - "7.0"
   - "5.6"
-  - "5.5"
-  # hhvm-3.26 changed its PHP_VERSION to be 7.1.99 instead of 5.6.99
-  # which breaks 'composer install' because HHVM does not support
-  # use of empty property keys, whereas PHP 7
-  # https://github.com/composer/composer/issues/7361
-  - "hhvm-3.24"
-  - "hhvm-3.21"
+  # Only support the HHVM version that MediaWiki supports.
+  # Also, hhvm-3.26 changed its PHP_VERSION from 5.6.99 to 7.1.99 which breaks Composer.
+  # – <https://github.com/composer/composer/issues/7361>
   - "hhvm-3.18"
 install:
   - composer install
