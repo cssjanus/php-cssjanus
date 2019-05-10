@@ -92,7 +92,7 @@ class CSSJanus {
 
 		// @codingStandardsIgnoreStart Generic.Files.LineLength.TooLong
 		$patterns =& self::$patterns;
-		$patterns['escape'] = "(?:{$patterns['unicode']}|\\\\[^\\r\\n\f0-9a-f])";
+		$patterns['escape'] = "(?:{$patterns['unicode']}|\\\\[^\\r\\n\\f0-9a-f])";
 		$patterns['nmstart'] = "(?:[_a-z]|{$patterns['nonAscii']}|{$patterns['escape']})";
 		$patterns['nmchar'] = "(?:[_a-z0-9-]|{$patterns['nonAscii']}|{$patterns['escape']})";
 		$patterns['ident'] = "-?{$patterns['nmstart']}{$patterns['nmchar']}*";
