@@ -1,6 +1,6 @@
 <?php
 
-class CSSJanusTest extends PHPUnit_Framework_TestCase {
+class CSSJanusTest extends PHPUnit\Framework\TestCase {
 
 	public static function provideData() {
 		$data = self::getSpec();
