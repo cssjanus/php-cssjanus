@@ -27,6 +27,9 @@
  * from left-to-right (LTR) to right-to-left (RTL).
  */
 class CSSJanus {
+	private const TOKEN_TMP = '`TMP`';
+	private const TOKEN_COMMENT = '`COMMENT`';
+
 	// Patterns defined as null are built dynamically by buildPatterns()
 	private static $patterns = array(
 		'tmpToken' => '`TMP`',
@@ -171,7 +174,7 @@ class CSSJanus {
 		$css = $noFlipClass->tokenize($css);
 
 		// Tokenize comments
-		$comments = new CSSJanusTokenizer(self::$patterns['comment'], '`C`');
+		$comments = new CSSJanusTokenizer(self::$patterns['comment'], self::TOKEN_COMMENT);
 		$css = $comments->tokenize($css);
 
 		// LTR->RTL fixes start here
@@ -214,11 +217,11 @@ class CSSJanus {
 	private static function fixDirection($css) {
 		$css = preg_replace(
 			self::$patterns['direction_ltr'],
-			'$1' . self::$patterns['tmpToken'],
+			'$1' . self::TOKEN_TMP,
 			$css
 		);
 		$css = preg_replace(self::$patterns['direction_rtl'], '$1ltr', $css);
-		$css = str_replace(self::$patterns['tmpToken'], 'rtl', $css);
+		$css = str_replace(self::TOKEN_TMP, 'rtl', $css);
 
 		return $css;
 	}
@@ -229,9 +232,9 @@ class CSSJanus {
 	 * @return string
 	 */
 	private static function fixLtrRtlInURL($css) {
-		$css = preg_replace(self::$patterns['ltr_in_url'], self::$patterns['tmpToken'], $css);
+		$css = preg_replace(self::$patterns['ltr_in_url'], self::TOKEN_TMP, $css);
 		$css = preg_replace(self::$patterns['rtl_in_url'], 'ltr', $css);
-		$css = str_replace(self::$patterns['tmpToken'], 'rtl', $css);
+		$css = str_replace(self::TOKEN_TMP, 'rtl', $css);
 
 		return $css;
 	}
@@ -242,9 +245,9 @@ class CSSJanus {
 	 * @return string
 	 */
 	private static function fixLeftRightInURL($css) {
-		$css = preg_replace(self::$patterns['left_in_url'], self::$patterns['tmpToken'], $css);
+		$css = preg_replace(self::$patterns['left_in_url'], self::TOKEN_TMP, $css);
 		$css = preg_replace(self::$patterns['right_in_url'], 'left', $css);
-		$css = str_replace(self::$patterns['tmpToken'], 'right', $css);
+		$css = str_replace(self::TOKEN_TMP, 'right', $css);
 
 		return $css;
 	}
@@ -255,9 +258,9 @@ class CSSJanus {
 	 * @return string
 	 */
 	private static function fixLeftAndRight($css) {
-		$css = preg_replace(self::$patterns['left'], self::$patterns['tmpToken'], $css);
+		$css = preg_replace(self::$patterns['left'], self::TOKEN_TMP, $css);
 		$css = preg_replace(self::$patterns['right'], 'left', $css);
-		$css = str_replace(self::$patterns['tmpToken'], 'right', $css);
+		$css = str_replace(self::TOKEN_TMP, 'right', $css);
 
 		return $css;
 	}
@@ -270,11 +273,11 @@ class CSSJanus {
 	private static function fixCursorProperties($css) {
 		$css = preg_replace(
 			self::$patterns['cursor_east'],
-			'$1' . self::$patterns['tmpToken'],
+			'$1' . self::TOKEN_TMP,
 			$css
 		);
 		$css = preg_replace(self::$patterns['cursor_west'], '$1e-resize', $css);
-		$css = str_replace(self::$patterns['tmpToken'], 'w-resize', $css);
+		$css = str_replace(self::TOKEN_TMP, 'w-resize', $css);
 
 		return $css;
 	}
